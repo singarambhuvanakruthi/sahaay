@@ -1,0 +1,198 @@
+{
+  "services": [
+    {
+      "id": "scholarship_pwd",
+      "name": "National Scholarship for Students with Disabilities",
+      "category": "Education",
+      "description": "Financial assistance for students with disabilities pursuing school or higher education.",
+      "eligibility": {
+        "is_student": true,
+        "max_annual_income": 250000,
+        "min_disability_percentage": 40,
+        "disability_certificate_required": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Disability certificate (UDID or state-issued)",
+        "Income certificate",
+        "Student ID / bonafide certificate from institution",
+        "Bank account passbook copy",
+        "Passport-size photo"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility (student status, income, disability %)" },
+        { "step": 3, "title": "Upload documents" },
+        { "step": 4, "title": "Review information" },
+        { "step": 5, "title": "Submit application" }
+      ]
+    },
+    {
+      "id": "udid_certificate",
+      "name": "UDID (Unique Disability ID) Card / Disability Certificate",
+      "category": "Identification",
+      "description": "Official disability identification card required to access most disability welfare schemes.",
+      "eligibility": {
+        "min_disability_percentage": 1,
+        "medical_assessment_required": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Address proof",
+        "Passport-size photo",
+        "Medical assessment report (if already available)"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Book medical assessment slot" },
+        { "step": 3, "title": "Upload existing documents" },
+        { "step": 4, "title": "Review information" },
+        { "step": 5, "title": "Submit application" }
+      ]
+    },
+    {
+      "id": "disability_pension",
+      "name": "Indira Gandhi National Disability Pension Scheme",
+      "category": "Financial Assistance",
+      "description": "Monthly pension for persons with severe disabilities living below the poverty line.",
+      "eligibility": {
+        "min_age": 18,
+        "max_age": 79,
+        "min_disability_percentage": 80,
+        "below_poverty_line": true,
+        "disability_certificate_required": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Disability certificate",
+        "BPL (Below Poverty Line) card",
+        "Age proof",
+        "Bank account passbook copy"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility (age, BPL status, disability %)" },
+        { "step": 3, "title": "Upload documents" },
+        { "step": 4, "title": "Review information" },
+        { "step": 5, "title": "Submit application" }
+      ]
+    },
+    {
+      "id": "adip_scheme",
+      "name": "ADIP Scheme (Aids and Appliances)",
+      "category": "Assistive Devices",
+      "description": "Financial assistance for purchase or fitting of aids and appliances (wheelchairs, hearing aids, artificial limbs, etc.).",
+      "eligibility": {
+        "max_monthly_income": 30000,
+        "min_disability_percentage": 40,
+        "disability_certificate_required": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Disability certificate",
+        "Income certificate",
+        "Medical prescription for required aid/appliance",
+        "Passport-size photo"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility (income, disability %)" },
+        { "step": 3, "title": "Select required aid/appliance" },
+        { "step": 4, "title": "Upload documents" },
+        { "step": 5, "title": "Review and submit application" }
+      ]
+    },
+    {
+      "id": "rail_concession",
+      "name": "Railway Fare Concession for Persons with Disabilities",
+      "category": "Travel",
+      "description": "Discounted rail fares for persons with disabilities and one accompanying attendant.",
+      "eligibility": {
+        "disability_certificate_required": true,
+        "min_disability_percentage": 40
+      },
+      "documents": [
+        "Disability certificate",
+        "Photo ID proof",
+        "Passport-size photo"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility" },
+        { "step": 3, "title": "Upload documents" },
+        { "step": 4, "title": "Generate concession certificate/pass" }
+      ]
+    },
+    {
+      "id": "skill_development_pwd",
+      "name": "Skill Development Scheme for Persons with Disabilities",
+      "category": "Employment",
+      "description": "Vocational training and skill development support to improve employability.",
+      "eligibility": {
+        "min_age": 15,
+        "max_age": 59,
+        "disability_certificate_required": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Disability certificate",
+        "Educational qualification certificate (if any)",
+        "Passport-size photo"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility (age, disability status)" },
+        { "step": 3, "title": "Select training program of interest" },
+        { "step": 4, "title": "Upload documents" },
+        { "step": 5, "title": "Review and submit application" }
+      ]
+    },
+    {
+      "id": "marriage_assistance_pwd",
+      "name": "Marriage Assistance Scheme for Persons with Disabilities",
+      "category": "Financial Assistance",
+      "description": "One-time financial assistance provided on marriage where one or both partners have a disability (scheme varies by state).",
+      "eligibility": {
+        "disability_certificate_required": true,
+        "min_disability_percentage": 40,
+        "max_annual_income": 200000
+      },
+      "documents": [
+        "Aadhaar card (both partners)",
+        "Disability certificate",
+        "Marriage certificate / registration proof",
+        "Income certificate",
+        "Bank account passbook copy"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility (disability %, income)" },
+        { "step": 3, "title": "Upload documents" },
+        { "step": 4, "title": "Review information" },
+        { "step": 5, "title": "Submit application" }
+      ]
+    },
+    {
+      "id": "accessible_housing_pwd",
+      "name": "Deendayal Disabled Rehabilitation Scheme (Housing/Rehabilitation Support)",
+      "category": "Housing & Rehabilitation",
+      "description": "Support for rehabilitation services and accessible living for persons with disabilities, delivered through NGOs.",
+      "eligibility": {
+        "disability_certificate_required": true,
+        "below_poverty_line": true
+      },
+      "documents": [
+        "Aadhaar card",
+        "Disability certificate",
+        "BPL card or income proof",
+        "Address proof"
+      ],
+      "steps": [
+        { "step": 1, "title": "Enter personal details" },
+        { "step": 2, "title": "Check eligibility" },
+        { "step": 3, "title": "Upload documents" },
+        { "step": 4, "title": "Review and submit application" }
+      ]
+    }
+  ]
+}
