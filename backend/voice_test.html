@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SAHAAY Voice Test</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .controls {
+            margin-bottom: 15px;
+        }
+
+        button,
+        select {
+            padding: 12px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        #status {
+            margin-top: 15px;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        #answer {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            min-height: 80px;
+            white-space: pre-wrap;
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <h1>🌷 SAHAAY Voice Test</h1>
+
+
+    <!-- LANGUAGE -->
+
+    <div class="controls">
+
+        <label for="language">
+            Language:
+        </label>
+
+        <select id="language">
+
+            <option value="en-IN">
+                English
+            </option>
+
+            <option value="hi-IN">
+                Hindi
+            </option>
+
+            <option value="te-IN">
+                Telugu
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION -->
+
+    <textarea
+        id="question"
+        placeholder="Type your question or use the microphone..."
+    ></textarea>
+
+
+    <br>
+
+
+    <!-- BUTTONS -->
+
+    <button id="speakButton">
+        🎤 Speak
+    </button>
+
+    <button id="askButton">
+        🤖 Ask Sahaay
+    </button>
+
+    <button id="listenButton">
+        🔊 Listen
+    </button>
+
+    <button id="stopButton">
+        ⏹ Stop
+    </button>
+
+
+    <!-- STATUS -->
+
+    <div id="status">
+        ✅ Ready.
+    </div>
+
+
+    <!-- ANSWER -->
+
+    <div id="answer">
+        Sahaay's answer will appear here.
+    </div>
+
+
+<script>
+
+
+// =====================================
+// SETTINGS
+// =====================================
+
+const API_URL =
+    "http://127.0.0.1:8000";
+
+
+let latestAnswer = "";
+
+
+// =====================================
+// GET ELEMENTS
+// =====================================
+
+const languageSelect =
+    document.getElementById("language");
+
+const questionBox =
+    document.getElementById("question");
+
+const statusBox =
+    document.getElementById("status");
+
+const answerBox =
+    document.getElementById("answer");
+
+
+// =====================================
+// LANGUAGE NAME
+// =====================================
+
+function getLanguageName() {
+
+    const code =
+        languageSelect.value;
+
+
+    if (code === "hi-IN") {
+        return "Hindi";
+    }
+
+
+    if (code === "te-IN") {
+        return "Telugu";
+    }
+
+
+    return "English";
+}
+
+
+// =====================================
+// 🎤 SPEECH → TEXT
+// =====================================
+
+function startListening() {
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        statusBox.textContent =
+            "❌ Speech recognition is not supported in this browser.";
+
+        return;
+    }
+
+
+    const recognition =
+        new SpeechRecognition();
+
+
+    recognition.lang =
+        languageSelect.value;
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.maxAlternatives =
+        1;
+
+
+    statusBox.textContent =
+        "🎤 Listening...";
+
+
+    try {
+
+        recognition.start();
+
+    } catch (error) {
+
+        statusBox.textContent =
+            "❌ Could not start microphone.";
+
+        console.error(error);
+
+        return;
+    }
+
+
+    recognition.onresult =
+        function(event) {
+
+            const text =
+                event.results[0][0].transcript;
+
+
+            questionBox.value =
+                text;
+
+
+            statusBox.textContent =
+                "✅ Speech converted to text.";
+        };
+
+
+    recognition.onerror =
+        function(event) {
+
+            console.error(
+                "Speech recognition error:",
+                event.error
+            );
+
+
+            if (event.error === "not-allowed") {
+
+                statusBox.textContent =
+                    "❌ Microphone permission denied. Allow microphone access in Chrome.";
+
+            }
+
+            else if (event.error === "network") {
+
+                statusBox.textContent =
+                    "❌ Browser speech service could not connect. Check your internet connection.";
+
+            }
+
+            else if (event.error === "no-speech") {
+
+                statusBox.textContent =
+                    "❌ No speech detected. Please try again.";
+
+            }
+
+            else if (event.error === "audio-capture") {
+
+                statusBox.textContent =
+                    "❌ No microphone was detected.";
+
+            }
+
+            else {
+
+                statusBox.textContent =
+                    "❌ Voice error: " +
+                    event.error;
+            }
+        };
+
+
+    recognition.onend =
+        function() {
+
+            console.log(
+                "Speech recognition ended."
+            );
+        };
+}
+
+
+// =====================================
+// 🤖 ASK SAHAAY
+// =====================================
+
+async function askSahaay() {
+
+    const question =
+        questionBox.value.trim();
+
+
+    if (!question) {
+
+        statusBox.textContent =
+            "❌ Please type or speak a question.";
+
+        return;
+    }
+
+
+    statusBox.textContent =
+        "🤖 Asking Sahaay...";
+
+
+    answerBox.textContent =
+        "";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/ask`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        question:
+                            question,
+
+                        language:
+                            getLanguageName()
+                    })
+                }
+            );
+
+
+        console.log(
+            "HTTP status:",
+            response.status
+        );
+
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+
+            throw new Error(
+                `Server returned ${response.status}: ${errorText}`
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Sahaay response:",
+            data
+        );
+
+
+        latestAnswer =
+            data.answer;
+
+
+        answerBox.textContent =
+            latestAnswer;
+
+
+        statusBox.textContent =
+            "✅ Sahaay answered.";
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Ask Sahaay error:",
+            error
+        );
+
+
+        statusBox.textContent =
+            "❌ Could not connect to Sahaay. Check the browser console.";
+
+        answerBox.textContent =
+            error.message;
+    }
+}
+
+
+// =====================================
+// 🔊 TEXT → SPEECH
+// =====================================
+
+function speakAnswer() {
+
+    if (!latestAnswer) {
+
+        statusBox.textContent =
+            "❌ Ask Sahaay first.";
+
+        return;
+    }
+
+
+    if (!("speechSynthesis" in window)) {
+
+        statusBox.textContent =
+            "❌ Text-to-speech is not supported.";
+
+        return;
+    }
+
+
+    window.speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            latestAnswer
+        );
+
+
+    utterance.lang =
+        languageSelect.value;
+
+
+    utterance.rate =
+        0.95;
+
+
+    utterance.pitch =
+        1;
+
+
+    window.speechSynthesis.speak(
+        utterance
+    );
+
+
+    statusBox.textContent =
+        "🔊 Speaking...";
+}
+
+
+// =====================================
+// ⏹ STOP SPEECH
+// =====================================
+
+function stopSpeaking() {
+
+    if ("speechSynthesis" in window) {
+
+        window.speechSynthesis.cancel();
+    }
+
+
+    statusBox.textContent =
+        "⏹ Speech stopped.";
+}
+
+
+// =====================================
+// BUTTON EVENTS
+// =====================================
+
+document
+    .getElementById("speakButton")
+    .addEventListener(
+        "click",
+        startListening
+    );
+
+
+document
+    .getElementById("askButton")
+    .addEventListener(
+        "click",
+        askSahaay
+    );
+
+
+document
+    .getElementById("listenButton")
+    .addEventListener(
+        "click",
+        speakAnswer
+    );
+
+
+document
+    .getElementById("stopButton")
+    .addEventListener(
+        "click",
+        stopSpeaking
+    );
+
+
+</script>
+
+</body>
+
+</html>
