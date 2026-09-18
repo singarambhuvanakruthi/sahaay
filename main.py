@@ -89,9 +89,8 @@ class EligibilityRequest(BaseModel):
     has_disability_certificate: bool | None = None
 
 
-@app.post("/eligibility")
-def check_eligibility(req: EligibilityRequest):
-    service = get_service_or_404(req.service_id)
+def run_eligibility_check(service: dict, req: EligibilityRequest) -> dict:
+    """Core rule engine, shared by /eligibility and /services/{id}/context."""
     rules = service["eligibility"]
     reasons_failed = []
 
@@ -132,10 +131,35 @@ def check_eligibility(req: EligibilityRequest):
     is_eligible = len(reasons_failed) == 0
 
     return {
-        "service_id": req.service_id,
         "eligible": is_eligible,
         "status": "Potentially eligible" if is_eligible else "Not currently eligible",
         "reasons_failed": reasons_failed,
+    }
+
+
+@app.post("/eligibility")
+def check_eligibility(req: EligibilityRequest):
+    service = get_service_or_404(req.service_id)
+    result = run_eligibility_check(service, req)
+    return {"service_id": req.service_id, **result}
+
+
+# ---------------------------------------------------------
+# 7. POST /services/{id}/context
+# Combines eligibility + documents + steps into the exact
+# shape M2's /ask endpoint expects as "service_context".
+# ---------------------------------------------------------
+@app.post("/services/{service_id}/context")
+def get_service_context(service_id: str, req: EligibilityRequest):
+    service = get_service_or_404(service_id)
+    eligibility_result = run_eligibility_check(service, req)
+
+    return {
+        "service_name": service["name"],
+        "eligibility_status": eligibility_result["status"],
+        "requirements": service["documents"],
+        "next_steps": [step["title"] for step in service["steps"]],
+        "source": "M3 service data",
     }
 
 
