@@ -1,0 +1,67 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 12px rgba(28, 27, 25, 0.05);
+}
+
+.site-header-inner {
+  width: min(100% - 32px, 1120px);
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sahaay-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal-dark);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.sahaay-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.accessibility-trigger {
+  margin: 0;
+  padding: 10px 16px;
+  background: var(--surface);
+  color: var(--teal);
+  border-color: var(--teal);
+}
+
+@media (max-width: 620px) {
+  .site-header-inner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  .header-controls {
+    justify-content: space-between;
+  }
+}

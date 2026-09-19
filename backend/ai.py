@@ -1,10 +1,11 @@
 import json
 import os
 import re
+from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(Path(__file__).with_name(".env"))
 
 # ---------------------------------------
 # SETTINGS
@@ -12,24 +13,46 @@ load_dotenv()
 
 USE_MOCK = os.getenv("USE_MOCK", "true").lower() == "true"
 
+AI_PROVIDER = os.getenv(
+    "AI_PROVIDER",
+    "openai"
+).lower()
+
 OPENAI_MODEL = os.getenv(
     "OPENAI_MODEL",
     "gpt-5.6-luna"
 )
 
+GEMINI_MODEL = os.getenv(
+    "GEMINI_MODEL",
+    "gemini-2.5-flash"
+)
+
 client = None
 
 if not USE_MOCK:
-    from openai import OpenAI
+    if AI_PROVIDER == "gemini":
+        from google import genai
 
-    api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("GEMINI_API_KEY")
 
-    if not api_key:
-        raise ValueError(
-            "OPENAI_API_KEY is missing from .env"
-        )
+        if not api_key:
+            raise ValueError(
+                "GEMINI_API_KEY is missing from .env"
+            )
 
-    client = OpenAI(api_key=api_key)
+        client = genai.Client(api_key=api_key)
+    else:
+        from openai import OpenAI
+
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        if not api_key:
+            raise ValueError(
+                "OPENAI_API_KEY is missing from .env"
+            )
+
+        client = OpenAI(api_key=api_key)
 
 
 # ---------------------------------------
@@ -78,6 +101,14 @@ def _context_to_text(context: dict | None) -> str:
 
 
 def _real_ai(instructions: str, user_input: str) -> str:
+
+    if AI_PROVIDER == "gemini":
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=f"{instructions}\n\n{user_input}"
+        )
+
+        return response.text.strip()
 
     response = client.responses.create(
         model=OPENAI_MODEL,

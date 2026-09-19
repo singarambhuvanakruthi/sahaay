@@ -1,0 +1,379 @@
+/* =========================================
+   SAHAAY - Welcome Page
+   ========================================= */
+
+.welcome-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 20px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      #e6f3f0 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      #f8e4d8 0%,
+      transparent 35%
+    ),
+    #fbfaf8;
+}
+
+
+/* =========================================
+   Main Welcome Card
+   ========================================= */
+
+.welcome-card {
+  width: 100%;
+  max-width: 760px;
+
+  padding: 48px;
+
+  background: #ffffff;
+
+  border: 1px solid rgba(20, 99, 86, 0.12);
+  border-radius: 28px;
+
+  box-shadow:
+    0 18px 50px rgba(28, 27, 25, 0.08);
+}
+
+
+/* =========================================
+   Brand
+   ========================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 52px;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: #146356;
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.brand-name {
+  color: #146356;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* =========================================
+   Welcome Content
+   ========================================= */
+
+.welcome-content {
+  text-align: center;
+}
+
+.welcome-label {
+  margin: 0 0 12px;
+
+  color: #146356;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.welcome-content h1 {
+  margin: 0;
+
+  color: #1c1b19;
+
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.1;
+}
+
+.welcome-tagline {
+  margin: 18px 0 42px;
+
+  color: #625f5a;
+
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+.welcome-content h2 {
+  margin: 0 0 22px;
+
+  color: #1c1b19;
+
+  font-size: 22px;
+}
+
+
+/* =========================================
+   Action Buttons Container
+   ========================================= */
+
+.welcome-actions {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+
+/* =========================================
+   BOTH ACTION BUTTONS
+   ========================================= */
+
+.primary-action,
+.secondary-action {
+  width: 100%;
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 18px 22px;
+
+  border: 2px solid #146356;
+  border-radius: 18px;
+
+  background: #146356;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   HOVER - BOTH BUTTONS
+   ========================================= */
+
+.primary-action:hover,
+.secondary-action:hover {
+  background: #0f4d43;
+  border-color: #0f4d43;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(28, 27, 25, 0.12);
+}
+
+
+/* =========================================
+   BUTTON ICON
+   ========================================= */
+
+.action-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  color: #ffffff;
+
+  font-size: 21px;
+}
+
+
+/* =========================================
+   BUTTON TEXT
+   ========================================= */
+
+.primary-action span:last-child,
+.secondary-action span:last-child {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.primary-action strong,
+.secondary-action strong {
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.primary-action small,
+.secondary-action small {
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 14px;
+}
+
+
+/* =========================================
+   FOCUS STATE
+   ========================================= */
+
+.primary-action:focus-visible,
+.secondary-action:focus-visible,
+.accessibility-link:focus-visible {
+  outline: 4px solid #f0ad88;
+  outline-offset: 3px;
+}
+
+
+/* =========================================
+   Accessibility Link
+   ========================================= */
+
+.accessibility-link {
+  margin-top: 24px;
+
+  padding: 10px;
+
+  border: none;
+
+  background: transparent;
+  color: #146356;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.accessibility-link:hover {
+  background: transparent;
+  color: #0f4d43;
+
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* =========================================
+   Bottom Note
+   ========================================= */
+
+.welcome-note {
+  margin: 38px 0 0;
+
+  padding-top: 24px;
+
+  border-top: 1px solid #e8e3de;
+
+  color: #77736d;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   Mobile Responsive
+   ========================================= */
+
+@media (max-width: 600px) {
+  .welcome-page {
+    padding: 16px;
+  }
+
+  .welcome-card {
+    padding: 30px 20px;
+
+    border-radius: 22px;
+  }
+
+  .brand {
+    margin-bottom: 38px;
+  }
+
+  .welcome-tagline {
+    font-size: 17px;
+
+    margin-bottom: 34px;
+  }
+
+  .welcome-content h2 {
+    font-size: 20px;
+  }
+
+  .primary-action,
+  .secondary-action {
+    min-height: 76px;
+
+    padding: 16px 18px;
+
+    gap: 14px;
+  }
+
+  .action-icon {
+    width: 40px;
+    height: 40px;
+
+    font-size: 19px;
+  }
+
+  .primary-action strong,
+  .secondary-action strong {
+    font-size: 16px;
+  }
+
+  .primary-action small,
+  .secondary-action small {
+    font-size: 13px;
+  }
+}
+
+
+/* =========================================
+   Reduced Motion
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-action,
+  .secondary-action {
+    transition: none;
+  }
+}

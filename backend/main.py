@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from ai import (
+from .ai import (
     ask_sahaay,
     simplify_text,
     explain_topic,
