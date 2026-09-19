@@ -1,3 +1,4 @@
+import ServiceMatches from "../components/ServiceMatches";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Result() {
@@ -81,6 +82,7 @@ function Result() {
       <button onClick={() => navigate("/home")}>
         Back to Services
       </button>
+          <ServiceMatches age={age} income={income} hasCertificate={hasCertificate} />
     </main>
   );
 }
